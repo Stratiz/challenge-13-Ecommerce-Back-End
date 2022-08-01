@@ -1,0 +1,31 @@
+DROP DATABASE IF EXISTS product_db;
+CREATE DATABASE product_db;
+
+USE product_db;
+
+CREATE TABLE category(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    category_name VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE product(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    product_name VARCHAR(30) NOT NULL,
+    price DECIMAL NOT NULL,
+    stock INTEGER NOT NULL,
+    category_id INTEGER,
+    FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL
+);
+
+CREATE TABLE tag(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    tag_name VARCHAR(30)
+);
+
+CREATE TABLE product_tag(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    product_id INTEGER,
+    tag_id INTEGER,
+    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE SET NULL,
+    FOREIGN KEY (tag_id) REFERENCES tag(id) ON DELETE SET NULL
+);
